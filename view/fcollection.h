@@ -11,6 +11,7 @@
 #include "fartistsadd.h"
 #include "falbumadd.h"
 #include "model/album.h"
+#include "model/artist.h"
 
 namespace Ui {
 class FCollection;
@@ -32,8 +33,10 @@ private slots:
     void on_actionAlbum_triggered();
     void on_lvArtists_clicked(const QModelIndex &index);
 
-protected:
-    int getIdArtist(const QString &artistName);
+    void on_actionArtistEdit_triggered();
+
+    void on_actionArtistDelete_triggered();
+
 private:
     Ui::FCollection *ui;
     QSqlDatabase m_DB;

@@ -13,12 +13,12 @@ FArtistsAdd::~FArtistsAdd()
     delete ui;
 }
 
-bool FArtistsAdd::get(QString &value)
+bool FArtistsAdd::get(Artist &value)
 {
-    this->ui->eName->setText(value);
+    this->ui->eName->setText(value.Name());
 
     if (this->exec() == QDialog::Accepted) {
-        value = this->ui->eName->text();
+        value.setName(this->ui->eName->text());
         return true;
     }
 

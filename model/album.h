@@ -2,6 +2,10 @@
 #define ALBUM_H
 
 #include <QString>
+#include <QSqlDatabase>
+#include <QSqlQuery>
+#include <QVariant>
+
 class Album
 {
 public:
@@ -25,7 +29,12 @@ public:
     int IdArtist() const;
     void setIdArtist(int IdArtist);
 
+    bool save(QSqlDatabase &db);
+    int IdAlbum() const;
+    void setIdAlbum(int IdAlbum);
+
 private:
+    int m_IdAlbum;
     QString m_Title;
     QString m_Year;
     QString m_Label;

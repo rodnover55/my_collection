@@ -46,17 +46,10 @@ void FCollection::on_lineEdit_textChanged(const QString &value)
 void FCollection::on_actionArtist_triggered()
 {
     FArtistsAdd f;
-    QString artistName;
-    QString sql =
-            " insert into artists(name) "
-            " values(:artist_name) ";
+    Artist artist;
 
-    // TODO: Moved to model
-    if (f.get(artistName)) {
-        QSqlQuery query(this->m_DB);
-        query.prepare(sql);
-        query.bindValue(":artist_name", artistName);
-        query.exec();
+    if (f.get(artist)) {
+        artist.save(this->m_DB);
         this->m_ArtistsModel->select();
     }
 }
@@ -67,42 +60,11 @@ void FCollection::on_actionAlbum_triggered()
     Album album;
     QString artistName = this->m_ArtistsModel->data(this->ui->lvArtists->currentIndex()).toString();
 
-    QString sql =
-            " insert into albums(title, year, label, country, format, id_artist) "
-            " values(:title, :year, :label, :country, :format, :id_artist) ";
-    album.setIdArtist(this->getIdArtist(artistName));
+    album.setIdArtist(Artist::byName(this->m_DB, artistName).IdArtist());
 
     if (f.get(album)) {
-        QSqlQuery query(this->m_DB);
-        query.prepare(sql);
-        query.bindValue(":title", album.Title());
-        query.bindValue(":year", album.Year());
-        query.bindValue(":label", album.Label());
-        query.bindValue(":country", album.Country());
-        query.bindValue(":format", album.Format());
-        query.bindValue(":id_artist", album.IdArtist());
-        query.exec();
+        album.save(this->m_DB);
         this->m_AlbumsModel->select();
-    }
-}
-
-// TODO: Moved to model
-int FCollection::getIdArtist(const QString &artistName)
-{
-    QString sql =
-            " select artists.id_artist "
-            " from artists "
-            " where artists.name = :artist_name ";
-
-    QSqlQuery query(this->m_DB);
-    query.prepare(sql);
-    query.bindValue(":artist_name", artistName);
-    query.exec();
-
-    if (query.next()) {
-        return query.value(0).toInt();
-    } else {
-        return 0;
     }
 }
 
@@ -110,5 +72,31 @@ void FCollection::on_lvArtists_clicked(const QModelIndex &index)
 {
     QString artistName = this->m_ArtistsModel->data(index).toString();
 
-    this->m_AlbumsModel->setFilter(QString("albums.id_artist = %1").arg(this->getIdArtist(artistName)));
+    this->m_AlbumsModel->setFilter(QString("albums.id_artist = %1").arg(Artist::byName(this->m_DB, artistName).IdArtist()));
+}
+
+void FCollection::on_actionArtistEdit_triggered()
+{
+    FArtistsAdd f;
+
+    QString artistName = this->m_ArtistsModel->data(this->ui->lvArtists->currentIndex()).toString();
+
+    Artist artist = Artist::byName(this->m_DB, artistName);
+
+    qDebug() << artist.IdArtist();
+
+
+    if (f.get(artist)) {
+        artist.save(this->m_DB);
+        this->m_ArtistsModel->select();
+    }
+}
+
+void FCollection::on_actionArtistDelete_triggered()
+{
+    QString artistName = this->m_ArtistsModel->data(this->ui->lvArtists->currentIndex()).toString();
+
+    Artist artist = Artist::byName(this->m_DB, artistName);
+    artist.remove(this->m_DB);
+    this->m_ArtistsModel->select();
 }

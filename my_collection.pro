@@ -16,13 +16,15 @@ SOURCES += main.cpp\
     view/fartistsadd.cpp \
     view/falbumadd.cpp \
     view/fcollection.cpp \
-    model/album.cpp
+    model/album.cpp \
+    model/artist.cpp
 
 HEADERS  += \
     view/fartistsadd.h \
     view/falbumadd.h \
     view/fcollection.h \
-    model/album.h
+    model/album.h \
+    model/artist.h
 
 FORMS    += \
     view/fartistsadd.ui \

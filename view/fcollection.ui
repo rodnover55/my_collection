@@ -116,12 +116,22 @@
    </property>
    <widget class="QMenu" name="menu">
     <property name="title">
-     <string>Add</string>
+     <string>Artist</string>
     </property>
-    <addaction name="actionArtist"/>
-    <addaction name="actionAlbum"/>
+    <addaction name="actionArtistAdd"/>
+    <addaction name="actionArtistEdit"/>
+    <addaction name="actionArtistDelete"/>
+   </widget>
+   <widget class="QMenu" name="menuAlbum">
+    <property name="title">
+     <string>Album</string>
+    </property>
+    <addaction name="actionAlbumAdd"/>
+    <addaction name="actionAlbumEdit"/>
+    <addaction name="actionAlbumDelete"/>
    </widget>
    <addaction name="menu"/>
+   <addaction name="menuAlbum"/>
   </widget>
   <widget class="QToolBar" name="toolBar">
    <property name="windowTitle">
@@ -133,17 +143,37 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
-   <addaction name="actionArtist"/>
-   <addaction name="actionAlbum"/>
+   <addaction name="actionArtistAdd"/>
+   <addaction name="actionAlbumAdd"/>
   </widget>
-  <action name="actionArtist">
+  <action name="actionArtistAdd">
    <property name="text">
-    <string>Artist</string>
+    <string>Add</string>
    </property>
   </action>
-  <action name="actionAlbum">
+  <action name="actionAlbumAdd">
    <property name="text">
-    <string>Album</string>
+    <string>Add</string>
+   </property>
+  </action>
+  <action name="actionArtistEdit">
+   <property name="text">
+    <string>Edit</string>
+   </property>
+  </action>
+  <action name="actionArtistDelete">
+   <property name="text">
+    <string>Delete</string>
+   </property>
+  </action>
+  <action name="actionAlbumEdit">
+   <property name="text">
+    <string>Edit</string>
+   </property>
+  </action>
+  <action name="actionAlbumDelete">
+   <property name="text">
+    <string>Delete</string>
    </property>
   </action>
  </widget>

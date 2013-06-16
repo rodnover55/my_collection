@@ -3,6 +3,8 @@
 
 #include <QDialog>
 
+#include "model/artist.h"
+
 namespace Ui {
 class FArtistsAdd;
 }
@@ -15,7 +17,7 @@ public:
     explicit FArtistsAdd(QWidget *parent = 0);
     ~FArtistsAdd();
     
-    bool get(QString &value);
+    bool get(Artist &value);
 private:
     Ui::FArtistsAdd *ui;
 };
